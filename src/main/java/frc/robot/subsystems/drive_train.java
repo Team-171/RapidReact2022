@@ -59,4 +59,12 @@ public class drive_train extends SubsystemBase {
       drive.arcadeDrive((controller.getRawAxis(Constants.XBOX_RT)-controller.getRawAxis(Constants.XBOX_LT))*speed,
               controller.getRawAxis(Constants.XBOX_LX)*speed);
   } 
+
+  // Autonomous move method - Nobody touch it - Sam
+  public void autoMove(boolean move) {
+    if (move)
+      drive.tankDrive(.5, .5);
+    else
+      drive.tankDrive(0, 0);
+  }
 }

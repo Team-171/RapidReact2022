@@ -11,7 +11,12 @@ import frc.robot.subsystems.shooter;
 
 public class shooter_base extends CommandBase {
   /** Creates a new shooter_base. */
-  private final shooter shooter_subsystem;
+
+/////////////////////////////////////////////////////////////////////////////////////
+  // Changed private final shooter = shooter_subsystem; to below, this should work now
+  private shooter shooter_subsystem  = new shooter();
+/////////////////////////////////////////////////////////////////////////////////////
+
   XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
 
   public shooter_base(shooter s_s) {
@@ -27,13 +32,14 @@ public class shooter_base extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+//////////////////////////////////////////////////////////////////////////
+    // Changed shooter.setRPM to shooter_subsystem.setRPM
     if(driverController.getRawButtonPressed(Constants.XBOX_LB)){
-      shooter.setRPMShooter(3000);
+      shooter_subsystem.setRPMShooter(3000);
     } else {
-      shooter.setRPMShooter(0);
+      shooter_subsystem.setRPMShooter(0);
     }
-
+//////////////////////////////////////////////////////////////////////////
   }
   // Called once the command ends or is interrupted.
   @Override
@@ -45,3 +51,16 @@ public class shooter_base extends CommandBase {
     return false;
   }
 }
+/*
+      WEEGEE
+  ____     ___
+   ___\   /___
+  /   \   /   \
+  | * |   | * |
+  \___/   \___/
+        |
+       /_\
+   _  _____  _
+   \_/  _  \_/
+    
+    */

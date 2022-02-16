@@ -11,16 +11,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class shooter extends SubsystemBase {
   /** Creates a new shooter. */
-  private final CANSparkMax top_shooter;
-  private final CANSparkMax bottom_shooter;
-
   SparkMaxPIDController top_controller;
   SparkMaxPIDController bottom_controller;
-
-  public shooter() {
-    top_shooter = new CANSparkMax(Constants.TOP_SHOOTER, MotorType.kBrushless);
-    bottom_shooter = new CANSparkMax(Constants.BOTTOM_SHOOTER, MotorType.kBrushless);
-  }
+  
+  private CANSparkMax top_shooter = new CANSparkMax(Constants.TOP_SHOOTER, MotorType.kBrushless);
+  private CANSparkMax bottom_shooter = new CANSparkMax(Constants.BOTTOM_SHOOTER, MotorType.kBrushless);
 
   @Override
   public void periodic() {
@@ -30,7 +25,7 @@ public class shooter extends SubsystemBase {
      
      top_shooter.restoreFactoryDefaults();
      bottom_shooter.restoreFactoryDefaults();
- 
+  
      // set PID coefficients
      top_controller.setP(Constants.KP);
      top_controller.setI(Constants.KI);
@@ -38,7 +33,7 @@ public class shooter extends SubsystemBase {
      top_controller.setIZone(0);
      top_controller.setFF(0);
      top_controller.setOutputRange(-1, 1);
-
+  
      bottom_controller.setP(Constants.KP);
      bottom_controller.setI(Constants.KI);
      bottom_controller.setD(Constants.KD);
