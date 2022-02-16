@@ -4,6 +4,10 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -17,6 +21,11 @@ public class shooter_base extends CommandBase {
   private shooter shooter_subsystem  = new shooter();
 /////////////////////////////////////////////////////////////////////////////////////
 
+SparkMaxPIDController top_controller;
+SparkMaxPIDController bottom_controller;
+
+private CANSparkMax top_shooter = new CANSparkMax(Constants.TOP_SHOOTER, MotorType.kBrushless);
+private CANSparkMax bottom_shooter = new CANSparkMax(Constants.BOTTOM_SHOOTER, MotorType.kBrushless);
   XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
 
   public shooter_base(shooter s_s) {
@@ -27,7 +36,29 @@ public class shooter_base extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    top_controller = top_shooter.getPIDController();
+    bottom_controller = bottom_shooter.getPIDController();
+     // PID coefficients
+     
+     top_shooter.restoreFactoryDefaults();
+     bottom_shooter.restoreFactoryDefaults();
+  
+     // set PID coefficients
+     top_controller.setP(Constants.KP);
+     top_controller.setI(Constants.KI);
+     top_controller.setD(Constants.KD);
+     top_controller.setIZone(0);
+     top_controller.setFF(0);
+     top_controller.setOutputRange(-1, 1);
+  
+     bottom_controller.setP(Constants.KP);
+     bottom_controller.setI(Constants.KI);
+     bottom_controller.setD(Constants.KD);
+     bottom_controller.setIZone(0);
+     bottom_controller.setFF(0);
+     bottom_controller.setOutputRange(-1, 1);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

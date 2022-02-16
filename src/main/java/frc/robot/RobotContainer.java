@@ -10,8 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.drive_base;
-import frc.robot.subsystems.drive_train;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -22,25 +22,30 @@ import frc.robot.subsystems.drive_train;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
  
-  private final drive_train d_t;
-  private final drive_base d_b;
+  private final drive_train d_t = new drive_train();
+  private final drive_base d_b = new drive_base(d_t);
+  private final shooter s = new shooter();
+  private final shooter_base s_b = new shooter_base(s);
+  //private final intake_elevator i_e = new intake_elevator();
 
 
-  public static final XboxController xbox_controller = null;
+  XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
 
 
 /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    
-     d_t = new drive_train();
-     d_b = new drive_base(d_t);
-     d_b.addRequirements(d_t);
-     d_t.setDefaultCommand(d_b);
-
     // Configure the button bindings
     configureButtonBindings();
+    
+
+    //use this to drive the robot; RunCommand() is a convenience Feature for reference
+    // d_t.setDefaultCommand(d_b)(
+    //   new RunCommand(() -> d_t.drive_with_controller(driverController, Constant.DRIVETRAINSPEED))
+    //   , d_t
+    // );
+     
   }
 
   /**
@@ -50,6 +55,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
   }
 
 
