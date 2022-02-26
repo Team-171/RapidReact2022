@@ -24,8 +24,8 @@ public class RobotContainer {
  
   private final drive_train d_t = new drive_train();
   private final drive_base d_b = new drive_base(d_t);
-  private final shooter s = new shooter();
-  private final shooter_base s_b = new shooter_base(s);
+  //private final shooter s = new shooter();
+  //private final shooter_base s_b = new shooter_base(s);
   //private final intake_elevator i_e = new intake_elevator();
 
 

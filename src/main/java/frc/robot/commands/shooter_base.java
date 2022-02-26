@@ -4,14 +4,16 @@
 
 package frc.robot.commands;
 
-import com.revrobotics.CANSparkMax;
+//import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.shooter;
+
+import frc.robot.Robot;
 
 public class shooter_base extends CommandBase {
   /** Creates a new shooter_base. */
@@ -24,9 +26,9 @@ public class shooter_base extends CommandBase {
 SparkMaxPIDController top_controller;
 SparkMaxPIDController bottom_controller;
 
-private CANSparkMax top_shooter = new CANSparkMax(Constants.TOP_SHOOTER, MotorType.kBrushless);
-private CANSparkMax bottom_shooter = new CANSparkMax(Constants.BOTTOM_SHOOTER, MotorType.kBrushless);
-  XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
+//private CANSparkMax top_shooter = new CANSparkMax(Constants.TOP_SHOOTER, MotorType.kBrushless);
+//private CANSparkMax bottom_shooter = new CANSparkMax(Constants.BOTTOM_SHOOTER, MotorType.kBrushless);
+XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
 
   public shooter_base(shooter s_s) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -37,12 +39,12 @@ private CANSparkMax bottom_shooter = new CANSparkMax(Constants.BOTTOM_SHOOTER, M
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    top_controller = top_shooter.getPIDController();
-    bottom_controller = bottom_shooter.getPIDController();
+    top_controller = Robot.top_shooter.getPIDController();
+    bottom_controller = Robot.bottom_shooter.getPIDController();
+    
      // PID coefficients
-     
-     top_shooter.restoreFactoryDefaults();
-     bottom_shooter.restoreFactoryDefaults();
+     Robot.top_shooter.restoreFactoryDefaults();
+     Robot.bottom_shooter.restoreFactoryDefaults();
   
      // set PID coefficients
      top_controller.setP(Constants.KP);
@@ -67,7 +69,9 @@ private CANSparkMax bottom_shooter = new CANSparkMax(Constants.BOTTOM_SHOOTER, M
     // Changed shooter.setRPM to shooter_subsystem.setRPM
     if(driverController.getRawButtonPressed(Constants.XBOX_LB)){
       shooter_subsystem.setRPMShooter(3000);
-    } else {
+    } 
+
+    if (driverController.getRawButtonReleased(Constants.XBOX_LB)) {
       shooter_subsystem.setRPMShooter(0);
     }
 //////////////////////////////////////////////////////////////////////////
