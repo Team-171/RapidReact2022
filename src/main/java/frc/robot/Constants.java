@@ -31,8 +31,6 @@ public final class Constants {
     public static final int XBOX_RB = 5;
     public static final int XBOX_LB = 4;
     
-
-	public static final double DRIVETRAINSPEED = 0.75;
 	public static final int JOYSTICK_NUMBER = 0;
     public static final int TOP_SHOOTER = 5;  
     public static final int BOTTOM_SHOOTER = 6; 
@@ -46,4 +44,8 @@ public final class Constants {
     public static final int INTAKE_PISTON = 0; //Not assigned
 	public static final int BLOCK_PISTON = 0;
     public static final int XBOX_A = 0;
+
+    //set speeds
+    public static final int SHOOT_SPEED = 3500;
+    public static final double DRIVETRAINSPEED = 0.75;
 }

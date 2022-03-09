@@ -4,9 +4,7 @@
 
 package frc.robot.commands;
 
-//import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
-//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -23,13 +21,14 @@ public class shooter_base extends CommandBase {
   private shooter shooter_subsystem  = new shooter();
 /////////////////////////////////////////////////////////////////////////////////////
 
-SparkMaxPIDController top_controller;
-SparkMaxPIDController bottom_controller;
+SparkMaxPIDController top_motors_controller;
+SparkMaxPIDController bottom_motors_controller;
 
 //private CANSparkMax top_shooter = new CANSparkMax(Constants.TOP_SHOOTER, MotorType.kBrushless);
 //private CANSparkMax bottom_shooter = new CANSparkMax(Constants.BOTTOM_SHOOTER, MotorType.kBrushless);
 XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
 
+  //initialize the shooter base
   public shooter_base(shooter s_s) {
     // Use addRequirements() here to declare subsystem dependencies.
     shooter_subsystem = s_s;
@@ -39,27 +38,27 @@ XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    top_controller = Robot.top_shooter.getPIDController();
-    bottom_controller = Robot.bottom_shooter.getPIDController();
-    
-     // PID coefficients
+    top_motors_controller = Robot.top_shooter.getPIDController();
+    bottom_motors_controller = Robot.bottom_shooter.getPIDController();
+
+     // reset PID coefficients
      Robot.top_shooter.restoreFactoryDefaults();
      Robot.bottom_shooter.restoreFactoryDefaults();
   
      // set PID coefficients
-     top_controller.setP(Constants.KP);
-     top_controller.setI(Constants.KI);
-     top_controller.setD(Constants.KD);
-     top_controller.setIZone(0);
-     top_controller.setFF(0);
-     top_controller.setOutputRange(-1, 1);
+     top_motors_controller.setP(Constants.KP);
+     top_motors_controller.setI(Constants.KI);
+     top_motors_controller.setD(Constants.KD);
+     top_motors_controller.setIZone(0);
+     top_motors_controller.setFF(0);
+     top_motors_controller.setOutputRange(-1, 1);
   
-     bottom_controller.setP(Constants.KP);
-     bottom_controller.setI(Constants.KI);
-     bottom_controller.setD(Constants.KD);
-     bottom_controller.setIZone(0);
-     bottom_controller.setFF(0);
-     bottom_controller.setOutputRange(-1, 1);
+     bottom_motors_controller.setP(Constants.KP);
+     bottom_motors_controller.setI(Constants.KI);
+     bottom_motors_controller.setD(Constants.KD);
+     bottom_motors_controller.setIZone(0);
+     bottom_motors_controller.setFF(0);
+     bottom_motors_controller.setOutputRange(-1, 1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -67,8 +66,9 @@ XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
   public void execute() {
 //////////////////////////////////////////////////////////////////////////
     // Changed shooter.setRPM to shooter_subsystem.setRPM
+    // Set RPM according to a button being pressed
     if(driverController.getRawButtonPressed(Constants.XBOX_LB)){
-      shooter_subsystem.setRPMShooter(3000);
+      shooter_subsystem.setRPMShooter(Constants.SHOOT_SPEED);
     } 
 
     if (driverController.getRawButtonReleased(Constants.XBOX_LB)) {

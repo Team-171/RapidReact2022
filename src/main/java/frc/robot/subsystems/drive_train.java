@@ -18,6 +18,7 @@ import frc.robot.Robot;
 
 public class drive_train extends SubsystemBase {
 
+  Robot robot = new Robot();
   /**
    * Creates a new drive_base.
    */
@@ -57,15 +58,17 @@ public class drive_train extends SubsystemBase {
   }
 
   public void drive_with_controller( XboxController controller , double speed) {
-      Robot.drive.arcadeDrive((controller.getRawAxis(Constants.XBOX_RT)-controller.getRawAxis(Constants.XBOX_LT))*speed,
+      //param 1: find the difference between the triggers and multiply by the speed (which is passed as a constant)
+      //param 2: find the left joystick axis and multipy by the speed
+      robot.drive.arcadeDrive((controller.getRawAxis(Constants.XBOX_RT)-controller.getRawAxis(Constants.XBOX_LT))*speed,
               controller.getRawAxis(Constants.XBOX_LX)*speed);
   } 
 
   // Autonomous move method - I'm not completely sure if this goes here
   public void autoMove(boolean move) {
     if (move)
-      Robot.drive.tankDrive(.5, .5);
+      robot.drive.tankDrive(.5, .5);
     else
-      Robot.drive.tankDrive(0, 0);
+      robot.drive.tankDrive(0, 0);
   }
 }

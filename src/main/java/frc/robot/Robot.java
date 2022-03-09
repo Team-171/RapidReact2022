@@ -20,9 +20,13 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-//import frc.robot.Autonomous.*;
-//import frc.robot.subsystems.*;
-//import frc.robot.commands.*;
+import frc.robot.Autonomous.ShootMove;
+import frc.robot.commands.shooter_base;
+import frc.robot.subsystems.drive_train;
+import frc.robot.subsystems.intake_elevator;
+import frc.robot.subsystems.shooter;
+import edu.wpi.first.wpilibj.XboxController;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -43,7 +47,7 @@ public class Robot extends TimedRobot {
   public static MotorControllerGroup left_motors;
   public static MotorControllerGroup right_motors;
 
-  public static DifferentialDrive drive;
+  public DifferentialDrive drive;
 
   // Intake, Elevator
   public static Spark intake_motor;
@@ -56,6 +60,17 @@ public class Robot extends TimedRobot {
   public static SparkMaxPIDController bottom_controller;
   public static CANSparkMax top_shooter;
   public static CANSparkMax bottom_shooter;
+
+  //Controller
+  public static XboxController drive_control;
+  public static double speed;
+  public static drive_train drive_train;
+
+  // Other
+  public static ShootMove shoot_move;
+  public static shooter shoot;
+  public static shooter_base shoot_base;
+  public static intake_elevator intake_ele;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -95,6 +110,8 @@ public class Robot extends TimedRobot {
     // Shooter
     top_shooter = new CANSparkMax(Constants.TOP_SHOOTER, MotorType.kBrushless);
     bottom_shooter = new CANSparkMax(Constants.BOTTOM_SHOOTER, MotorType.kBrushless);
+    shoot = new shooter();
+    shoot_base = new shooter_base(shoot);
 
     m_robotContainer = new RobotContainer();
   }
@@ -144,7 +161,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-
+    shoot_move.run();
   }
 
   @Override
@@ -163,6 +180,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    //drive according to controller triggers and joystick
+    drive_train.drive_with_controller(drive_control, Constants.DRIVETRAINSPEED);
+    //run shooter motors according to button press
+    shoot_base.execute();
+    //change intake position according to button
+    intake_ele.intake_piston_set(drive_control);    
   }
 
   @Override

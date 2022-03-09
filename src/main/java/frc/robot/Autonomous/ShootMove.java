@@ -15,35 +15,37 @@ import frc.robot.subsystems.drive_train;
 
 /** Add your docs here. */
 public class ShootMove extends drive_train {
-{
 
     int currentStep = 0;
 
-    try (Encoder encode = new Encoder(0, 1)) {
-        drive_train move = new drive_train();
-        // Do we need to do 2 separate methods, one for red and one for blue? Will this apply to teleop as well?
-        switch(currentStep) {
-            case 0: // Get current location
-                encode.reset();
-                currentStep++;
-                break;
-            case 1: // Shoot the ball
-                // Use a color sensor to tell when the ball has left the
-                currentStep++;
-                break;
-            case 2:
-                if (encode.getDistance() < 5) {
-                    move.autoMove(true);
-                }
-                else {
-                    move.autoMove(false);
-                }
-                currentStep++;
-                break;
-            default: //Nothing goes here, this just takes you out of the loop
-                break;
+    public void run() {
+        try (Encoder encode = new Encoder(0, 1)) {
+            drive_train move = new drive_train();
+            // Do we need to do 2 separate methods, one for red and one for blue? Will this apply to teleop as well?
+            switch(currentStep) {
+                case 0: // Get current location
+                    encode.reset();
+                    currentStep++;
+                    break;
+                case 1: // Shoot the ball
+                    // Use a color sensor to tell when the ball has left
+                    currentStep++;
+                    break;
+                case 2:
+                    if (encode.getDistance() < 5) {
+                        move.autoMove(true);
+                    }
+                    else {
+                        move.autoMove(false);
+                    }
+                    currentStep++;
+                    break;
+                default: //Nothing goes here, this just takes you out of the loop
+                    break;
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Auto Failed, Exception: " + e.toString()); // Debug, comment this line out when done
         }
     }
 }
-}
-
