@@ -2,13 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+package frc.robot.Autonomous;
+/*
+import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorMatch;*/
+
 /*
 Auto to shoot the ball and then move back 5ft
 
 Note: An encoder does 1120 ticks per rotation
 */
-
-package frc.robot.Autonomous;
 
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.subsystems.drive_train;
@@ -21,7 +25,6 @@ public class ShootMove extends drive_train {
     public void run() {
         try (Encoder encode = new Encoder(0, 1)) {
             drive_train move = new drive_train();
-            // Do we need to do 2 separate methods, one for red and one for blue? Will this apply to teleop as well?
             switch(currentStep) {
                 case 0: // Get current location
                     encode.reset();
@@ -29,6 +32,7 @@ public class ShootMove extends drive_train {
                     break;
                 case 1: // Shoot the ball
                     // Use a color sensor to tell when the ball has left
+                    
                     currentStep++;
                     break;
                 case 2:

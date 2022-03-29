@@ -7,11 +7,11 @@
 
 package frc.robot.subsystems;
 
-//import com.revrobotics.CANSparkMax;
-//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.XboxController;
-//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-//import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -23,19 +23,19 @@ public class drive_train extends SubsystemBase {
    * Creates a new drive_base.
    */
 
-   /*CANSparkMax left_front;
-   CANSparkMax right_front;
-   CANSparkMax left_back;
-   CANSparkMax right_back;
+   //CANSparkMax left_front;
+   //CANSparkMax right_front;
+   //CANSparkMax left_back;
+   //CANSparkMax right_back;
 
    MotorControllerGroup left_motors;
    MotorControllerGroup right_motors;
 
-   DifferentialDrive drive;*/
+   DifferentialDrive drive;
 
   public drive_train() {
-
-   /*left_front = new CANSparkMax(Constants.LEFT_FRONT, MotorType.kBrushless); 
+/*
+   left_front = new CANSparkMax(Constants.LEFT_FRONT, MotorType.kBrushless); 
    left_front.setInverted(false); 
    right_front = new CANSparkMax(Constants.RIGHT_FRONT, MotorType.kBrushless); 
    right_front.setInverted(true); 
@@ -48,6 +48,8 @@ public class drive_train extends SubsystemBase {
    right_motors = new MotorControllerGroup(right_front, right_back); 
 
    drive = new DifferentialDrive(left_motors, right_motors);*/
+
+   
  
   } 
  
@@ -60,8 +62,10 @@ public class drive_train extends SubsystemBase {
   public void drive_with_controller( XboxController controller , double speed) {
       //param 1: find the difference between the triggers and multiply by the speed (which is passed as a constant)
       //param 2: find the left joystick axis and multipy by the speed
-      robot.drive.arcadeDrive((controller.getRawAxis(Constants.XBOX_RT)-controller.getRawAxis(Constants.XBOX_LT))*speed,
-              controller.getRawAxis(Constants.XBOX_LX)*speed);
+      //robot.drive.arcadeDrive((controller.getRawAxis(Constants.XBOX_RT)-controller.getRawAxis(Constants.XBOX_LT))*speed,
+              //controller.getRawAxis(Constants.XBOX_LX)*speed);
+      robot.drive.tankDrive(controller.getLeftY(), controller.getRightY());
+      // .getY()?          Constants.XBOX_DRIVE_RJ  Constants.XBOX_DRIVE_LJ
   } 
 
   // Autonomous move method - I'm not completely sure if this goes here

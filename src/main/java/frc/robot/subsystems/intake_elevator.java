@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class intake_elevator extends SubsystemBase {
+public class intake_elevator extends SubsystemBase{
   /** Creates a new intake_elevator. */
   /*Spark intake_motor;
   Spark elevator_motor;
@@ -30,16 +30,34 @@ public class intake_elevator extends SubsystemBase {
   }
 
   // Turns on/activates the intake
+  // XBOX_A
   public void intake_piston_set(XboxController controller) {
-    if (controller.getRawButtonPressed(Constants.XBOX_A)) {
-      Robot.intake_piston.set(true);
-      Robot.intake_motor.set(0.5);
-    }
-    if (controller.getRawButtonReleased(Constants.XBOX_A)) {
-      Robot.intake_piston.set(false);
-      Robot.intake_motor.set(0.0);
-    }
-  } 
+  if (controller.getRawButtonPressed(Constants.XBOX_ACC_XB)) {
+    Robot.intake_piston.set(true);
+  } // end if controller.getRawButtonPressed
 
+  if (controller.getRawButtonReleased(Constants.XBOX_ACC_BB)) {
+    Robot.intake_piston.set(false);
+  } // end if controller.getRawButtonReleased
 
+  // Out
+  if (controller.getLeftTriggerAxis() > 0)
+    Robot.intake_motor.set(controller.getLeftTriggerAxis());
+
+  // In
+  if (controller.getRightTriggerAxis() > 0)
+    Robot.intake_motor.set(controller.getRightTriggerAxis());
+
+  // Elevator up
+  if (controller.getRawAxis(Constants.XBOX_ACC_LJ) > 0)
+    Robot.elevator_motor.set(controller.getRawAxis(Constants.XBOX_ACC_LJ));
+  
+  // ELevator Down
+  if (controller.getRawAxis(Constants.XBOX_ACC_LJ) < 0)
+    Robot.elevator_motor.set(controller.getRawAxis(Constants.XBOX_ACC_LJ));
+
+  //equal to zero??
+  
+  // XBOX_A
+  } // end intake_piston_set
 }

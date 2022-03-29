@@ -31,8 +31,8 @@ XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
   //initialize the shooter base
   public shooter_base(shooter s_s) {
     // Use addRequirements() here to declare subsystem dependencies.
-    shooter_subsystem = s_s;
-    addRequirements(shooter_subsystem);
+    Robot.shooter_subsystem = s_s;
+    addRequirements(Robot.shooter_subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -67,13 +67,20 @@ XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
 //////////////////////////////////////////////////////////////////////////
     // Changed shooter.setRPM to shooter_subsystem.setRPM
     // Set RPM according to a button being pressed
-    if(driverController.getRawButtonPressed(Constants.XBOX_LB)){
+    // getRawButtonPressed(Constants.XBOX_LB)
+    if (driverController.getPOV(0) == 0) {
+      // Shoot high
       shooter_subsystem.setRPMShooter(Constants.SHOOT_SPEED);
     } 
-
-    if (driverController.getRawButtonReleased(Constants.XBOX_LB)) {
-      shooter_subsystem.setRPMShooter(0);
+    
+    if (driverController.getPOV(0) == 180) {
+      // Shoot low
     }
+
+    // Needs to be Dpad down - above
+    //if (driverController.getRawButtonReleased(Constants.XBOX_LB)) {
+      //shooter_subsystem.setRPMShooter(0);
+    //}
 //////////////////////////////////////////////////////////////////////////
   }
   // Called once the command ends or is interrupted.
@@ -86,16 +93,3 @@ XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
     return false;
   }
 }
-/*
-      WEEGEE
-  ____     ___
-   ___\   /___
-  /   \   /   \
-  | * |   | * |
-  \___/   \___/
-        |
-       /_\
-   _  _____  _
-   \_/  _  \_/
-    
-    */
