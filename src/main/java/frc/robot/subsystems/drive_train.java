@@ -16,7 +16,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class drive_train extends SubsystemBase {
+// extends SubsystemBase
+public class drive_train {
 
   Robot robot = new Robot();
   /**
@@ -49,22 +50,22 @@ public class drive_train extends SubsystemBase {
 
    drive = new DifferentialDrive(left_motors, right_motors);*/
 
-   
+
  
   } 
  
-  @Override 
-  public void periodic() { 
-    // This method will be called once per scheduler run 
-    
-  }
+  //@Override 
+  //public void periodic() { 
+    // This method will be called once per scheduler run     
+    //drive_with_controller(Robot.drive_control, Constants.DRIVETRAINSPEED);
+  //}
 
   public void drive_with_controller( XboxController controller , double speed) {
       //param 1: find the difference between the triggers and multiply by the speed (which is passed as a constant)
       //param 2: find the left joystick axis and multipy by the speed
       //robot.drive.arcadeDrive((controller.getRawAxis(Constants.XBOX_RT)-controller.getRawAxis(Constants.XBOX_LT))*speed,
               //controller.getRawAxis(Constants.XBOX_LX)*speed);
-      robot.drive.tankDrive(controller.getLeftY(), controller.getRightY());
+      //robot.drive.tankDrive(controller.getLeftY(), controller.getRightY());
       // .getY()?          Constants.XBOX_DRIVE_RJ  Constants.XBOX_DRIVE_LJ
   } 
 

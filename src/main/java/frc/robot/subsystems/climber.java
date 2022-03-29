@@ -22,14 +22,9 @@ import frc.robot.Robot;
 //piston true - x button
 //two motors
 
-public class climber extends SubsystemBase{
+// extends SubsystemBase
+public class climber {
     public climber(){
-        
-    }
-
-    @Override 
-    public void periodic() { 
-        // This method will be called once per scheduler run 
         
     }
 

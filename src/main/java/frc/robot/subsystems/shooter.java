@@ -11,7 +11,9 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class shooter extends SubsystemBase {
+
+// extends SubsystemBase
+public class shooter {
   /** Creates a new shooter. */
   //SparkMaxPIDController top_controller;
   //SparkMaxPIDController bottom_controller;
@@ -19,8 +21,7 @@ public class shooter extends SubsystemBase {
   //private CANSparkMax top_shooter = new CANSparkMax(Constants.TOP_SHOOTER, MotorType.kBrushless);
   //private CANSparkMax bottom_shooter = new CANSparkMax(Constants.BOTTOM_SHOOTER, MotorType.kBrushless);
 
-  @Override
-  public void periodic() {
+  public shooter() {
     Robot.top_controller = Robot.top_shooter.getPIDController();
     Robot.bottom_controller = Robot.bottom_shooter.getPIDController();
      // PID coefficients

@@ -150,6 +150,9 @@ public class Robot extends TimedRobot {
     //color_match.addColorMatch(color_blue);
     //color_match.addColorMatch(color_red);
 
+    drive_control = new XboxController(1);
+    accessory_controller = new XboxController(2);
+
     m_robotContainer = new RobotContainer();
   }
 
@@ -235,7 +238,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //drive according to controller triggers and joystick
-    drive_train.drive_with_controller(drive_control, Constants.DRIVETRAINSPEED);
+    //drive_train.drive_with_controller(drive_control, Constants.DRIVETRAINSPEED);
+    drive.tankDrive(drive_control.getLeftY(), drive_control.getRightY());
     
     //run shooter motors according to button press
     //shoot_base.execute();

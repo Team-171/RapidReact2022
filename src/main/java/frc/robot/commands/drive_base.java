@@ -22,7 +22,7 @@ public class drive_base extends CommandBase {
   public drive_base(drive_train dt) {
     // Use addRequirements() here to declare subsystem dependencies.
     Drive_Train = dt;
-    addRequirements(dt);
+    //addRequirements(dt);
   }
 
   // Called when the command is initially scheduled.

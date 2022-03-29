@@ -32,7 +32,7 @@ XboxController driverController = new XboxController(Constants.JOYSTICK_NUMBER);
   public shooter_base(shooter s_s) {
     // Use addRequirements() here to declare subsystem dependencies.
     Robot.shooter_subsystem = s_s;
-    addRequirements(Robot.shooter_subsystem);
+    //addRequirements(Robot.shooter_subsystem);
   }
 
   // Called when the command is initially scheduled.
